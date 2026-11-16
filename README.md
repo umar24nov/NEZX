@@ -6,15 +6,15 @@ The public site is a close rebuild of the supplied `index.html` prototype: dark 
 
 ## Stack
 
-| Layer      | Technology                                                              |
-| ---------- | ----------------------------------------------------------------------- |
-| Frontend   | TypeScript, React 19, Vite, Tailwind CSS 4, shadcn-style UI, Radix UI    |
-| Data layer | TanStack Query, Zustand, React Hook Form, Zod                            |
-| API        | Node.js, Express 5, Zod, Better Auth, express-rate-limit, Helmet         |
-| Database   | PostgreSQL + Prisma 7                                                    |
-| Media      | Cloudflare R2 presigned uploads                                          |
-| Edge       | Cloudflare Pages, WAF, Turnstile                                         |
-| Quality    | Vitest, Testing Library, Supertest, Playwright, GitHub Actions           |
+| Layer      | Technology                                                            |
+| ---------- | --------------------------------------------------------------------- |
+| Frontend   | TypeScript, React 19, Vite, Tailwind CSS 4, shadcn-style UI, Radix UI |
+| Data layer | TanStack Query, Zustand, React Hook Form, Zod                         |
+| API        | Node.js, Express 5, Zod, Better Auth, express-rate-limit, Helmet      |
+| Database   | PostgreSQL + Prisma 7                                                 |
+| Media      | Cloudflare R2 presigned uploads                                       |
+| Edge       | Cloudflare Pages, WAF, Turnstile                                      |
+| Quality    | Vitest, Testing Library, Supertest, Playwright, GitHub Actions        |
 
 ## Repository layout
 
@@ -42,12 +42,14 @@ The public site is a close rebuild of the supplied `index.html` prototype: dark 
 
 **Prerequisites:** Node.js 22+, npm 10+, and either Docker or a local PostgreSQL 16 instance.
 
+For a complete walkthrough, including installing Docker on Windows and troubleshooting, see [Local setup with Docker](docs/LOCAL_SETUP.md).
+
 ```bash
 # 1. Install dependencies
 npm install
 
 # 2. Start PostgreSQL
-docker compose up -d
+npm run db:up
 
 # 3. Create environment files
 cp apps/api/.env.example apps/api/.env
@@ -72,30 +74,35 @@ Start both apps:
 npm run dev
 ```
 
-| Service        | URL                              |
-| -------------- | -------------------------------- |
-| Website        | http://localhost:5173            |
-| API            | http://localhost:4000            |
-| API health     | http://localhost:4000/api/health |
-| Owner inbox    | http://localhost:5173/admin      |
+| Service     | URL                              |
+| ----------- | -------------------------------- |
+| Website     | http://localhost:5173            |
+| API         | http://localhost:4000            |
+| API health  | http://localhost:4000/api/health |
+| Owner inbox | http://localhost:5173/admin      |
 
 The owner account is created from `ADMIN_EMAIL` and `ADMIN_PASSWORD` in `apps/api/.env`. Defaults in `.env.example` are `owner@nezxacademy.com` / `ChangeMe-12345` — change them before deploying.
 
 ## Scripts
 
-| Command                | Description                                                |
-| ---------------------- | ---------------------------------------------------------- |
-| `npm run dev`          | Build shared, then run API and web together                |
-| `npm run build`        | Production build for shared, API and web                   |
-| `npm run typecheck`    | TypeScript across all workspaces                           |
-| `npm test`             | Unit/integration tests (builds shared first)               |
-| `npm run test:e2e`     | Playwright smoke tests against the production preview      |
-| `npm run db:generate`  | Generate the Prisma client                                 |
-| `npm run db:migrate`   | Create/apply a migration in development                    |
-| `npm run db:deploy`    | Apply committed migrations in production                   |
-| `npm run db:seed`      | Seed content and the owner account                         |
-| `npm run db:studio`    | Open Prisma Studio                                         |
-| `npm run format`       | Format with Prettier                                       |
+| Command               | Description                                             |
+| --------------------- | ------------------------------------------------------- |
+| `npm run dev`         | Build shared, then run API and web together             |
+| `npm run build`       | Production build for shared, API and web                |
+| `npm run typecheck`   | TypeScript across all workspaces                        |
+| `npm test`            | Unit/integration tests (builds shared first)            |
+| `npm run test:e2e`    | Playwright smoke tests against the production preview   |
+| `npm run db:generate` | Generate the Prisma client                              |
+| `npm run db:migrate`  | Create/apply a migration in development                 |
+| `npm run db:deploy`   | Apply committed migrations in production                |
+| `npm run db:seed`     | Seed content and the owner account                      |
+| `npm run db:studio`   | Open Prisma Studio                                      |
+| `npm run db:up`       | Start local PostgreSQL in Docker                        |
+| `npm run db:down`     | Stop the PostgreSQL container (keeps data)              |
+| `npm run db:logs`     | Follow PostgreSQL logs                                  |
+| `npm run db:psql`     | Open a psql shell in the container                      |
+| `npm run db:reset`    | Delete the Docker volume and recreate an empty database |
+| `npm run format`      | Format with Prettier                                    |
 
 ## Content and media
 
@@ -107,6 +114,7 @@ The owner account is created from `ADMIN_EMAIL` and `ADMIN_PASSWORD` in `apps/ap
 
 ## Documentation
 
+- [Local setup with Docker](docs/LOCAL_SETUP.md) — install Docker, run PostgreSQL, seed, verify and troubleshoot.
 - [Deployment guide](docs/DEPLOYMENT.md) — Cloudflare Pages, Render, managed PostgreSQL, R2, Turnstile, WAF and DNS.
 - [API reference](docs/API.md) — public and owner endpoints, payloads, errors and rate limits.
 
@@ -123,7 +131,7 @@ The owner account is created from `ADMIN_EMAIL` and `ADMIN_PASSWORD` in `apps/ap
 
 ## Troubleshooting
 
-**`Can't reach database server`** — make sure `docker compose up -d` is running and `DATABASE_URL` matches the container credentials.
+**`Can't reach database server`** — make sure `npm run db:up` is running and `DATABASE_URL` matches the container credentials. See [Local setup with Docker](docs/LOCAL_SETUP.md) for Docker installation and database resets.
 
 **Prisma client errors after a schema change** — run `npm run db:generate` (and `npm run db:migrate` in development).
 

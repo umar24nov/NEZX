@@ -26,6 +26,11 @@
     "db:deploy": "npm run db:deploy -w @nezx/api",
     "db:seed": "npm run db:seed -w @nezx/api",
     "db:studio": "npm run db:studio -w @nezx/api",
+    "db:up": "docker compose up -d --wait",
+    "db:down": "docker compose down",
+    "db:logs": "docker compose logs -f postgres",
+    "db:psql": "docker compose exec postgres psql -U nezx -d nezx",
+    "db:reset": "docker compose down -v && docker compose up -d --wait",
     "setup": "npm run build -w @nezx/shared && npm run db:generate -w @nezx/api && npm run db:migrate -w @nezx/api && npm run db:seed -w @nezx/api"
   },
   "devDependencies": {
