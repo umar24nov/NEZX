@@ -1,919 +1,456 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, viewport-fit=cover"
-    />
-    <title>NEZX Academy – Learn. Launch. Sell. Grow.</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      :root {
-        --y: #ffc928;
-        --k: #111;
-        --bg: #0c0c0b;
-        --card: #161614;
-        --soft: #1d1d1a;
-        --line: #2e2e2b;
-        --fg: #fafaf8;
-        --mut: #a8a8a2;
-        box-sizing: border-box;
-        padding-top: env(safe-area-inset-top, 0px);
-        padding-bottom: env(safe-area-inset-bottom, 0px);
-      }
-      @media (prefers-color-scheme: light) {
-        :root[data-theme="light"] {
-          --bg: #fafaf8;
-          --card: #fff;
-          --soft: #f1f1ef;
-          --line: #e5e5e2;
-          --fg: #111;
-          --mut: #666;
-        }
-      }
-      * {
-        box-sizing: border-box;
-        margin: 0;
-      }
-      html {
-        scroll-padding-top: env(safe-area-inset-top, 0px);
-      }
-      body {
-        background: var(--bg);
-        color: var(--fg);
-        font:
-          16px/1.6 Inter,
-          system-ui,
-          sans-serif;
-        overflow-x: hidden;
-      }
-      h1,
-      h2,
-      h3,
-      .lg {
-        font-family: "Plus Jakarta Sans", Inter, sans-serif;
-        font-weight: 800;
-        line-height: 1.1;
-        letter-spacing: -0.02em;
-      }
-      h1 {
-        font-size: clamp(34px, 6vw, 64px);
-      }
-      h2 {
-        font-size: clamp(26px, 4vw, 40px);
-        margin-bottom: 12px;
-      }
-      h3 {
-        font-size: 20px;
-      }
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-      .w {
-        max-width: 1200px;
-        margin: auto;
-        padding: 0 20px;
-      }
-      section {
-        padding: 72px 0;
-      }
-      .mut {
-        color: var(--mut);
-      }
-      .hl {
-        background: var(--y);
-        color: #111;
-        padding: 0 0.15em;
-        border-radius: 6px;
-      }
-      nav {
-        position: sticky;
-        top: 0;
-        z-index: 20;
-        background: var(--bg);
-        border-bottom: 1px solid var(--line);
-        padding-top: env(safe-area-inset-top, 0px);
-      }
-      nav .w {
-        display: flex;
-        align-items: center;
-        gap: 24px;
-        height: 68px;
-      }
-      .logo {
-        font: 800 22px "Plus Jakarta Sans";
-        display: flex;
-        gap: 8px;
-        align-items: center;
-      }
-      .logo i {
-        background: var(--y);
-        color: #111;
-        border-radius: 8px;
-        padding: 2px 8px;
-        font-style: normal;
-      }
-      .links {
-        display: flex;
-        gap: 22px;
-        margin-left: auto;
-        align-items: center;
-        font-weight: 500;
-        font-size: 15px;
-      }
-      .links a:hover,
-      .links a.on {
-        box-shadow: 0 2px var(--y);
-      }
-      #burger {
-        display: none;
-        margin-left: auto;
-        background: none;
-        border: 1px solid var(--line);
-        border-radius: 10px;
-        width: 44px;
-        height: 44px;
-        color: var(--fg);
-        font-size: 20px;
-      }
-      .b {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        min-height: 46px;
-        padding: 0 22px;
-        border-radius: 12px;
-        font: 600 15px Inter;
-        border: 1.5px solid transparent;
-        cursor: pointer;
-        transition: 0.2s;
-      }
-      .b.p {
-        background: var(--y);
-        color: #111;
-      }
-      .b.p:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px #ffc92855;
-      }
-      .b.o {
-        border-color: var(--fg);
-        background: none;
-        color: var(--fg);
-      }
-      .b.d {
-        background: #111;
-        color: #fff;
-      }
-      .b:focus-visible,
-      input:focus,
-      select:focus,
-      textarea:focus {
-        outline: 3px solid var(--y);
-        outline-offset: 2px;
-      }
-      .hero {
-        display: grid;
-        grid-template-columns: 1.1fr 0.9fr;
-        gap: 48px;
-        align-items: center;
-      }
-      .row {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-        margin-top: 28px;
-      }
-      .ph {
-        border-radius: 20px;
-        background: linear-gradient(135deg, #222, #444);
-        aspect-ratio: 4/3.4;
-        display: flex;
-        align-items: flex-end;
-        padding: 20px;
-        color: #fff;
-        font-size: 13px;
-        position: relative;
-        overflow: hidden;
-      }
-      .ph:before {
-        content: "";
-        position: absolute;
-        right: -40px;
-        top: -40px;
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
-        background: var(--y);
-        opacity: 0.9;
-      }
-      .ph span {
-        position: relative;
-        background: #000a;
-        padding: 6px 12px;
-        border-radius: 8px;
-      }
-      .g {
-        display: grid;
-        gap: 20px;
-      }
-      .g4 {
-        grid-template-columns: repeat(4, 1fr);
-      }
-      .g3 {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      .g2 {
-        grid-template-columns: 1fr 1fr;
-      }
-      .c {
-        background: var(--card);
-        border: 1px solid var(--line);
-        border-radius: 18px;
-        padding: 24px;
-        transition: 0.2s;
-      }
-      .c:hover {
-        box-shadow: 0 12px 30px #0001;
-        transform: translateY(-3px);
-      }
-      .tag {
-        display: inline-block;
-        background: var(--y);
-        color: #111;
-        font: 600 12px Inter;
-        padding: 3px 10px;
-        border-radius: 99px;
-        margin: 0 6px 8px 0;
-      }
-      .tag.s {
-        background: var(--soft);
-        color: var(--fg);
-      }
-      .dark {
-        background: #000;
-        color: #fff;
-      }
-      .dark .mut {
-        color: #bbb;
-      }
-      .cta {
-        text-align: center;
-      }
-      .cta .row {
-        justify-content: center;
-      }
-      .steps {
-        display: grid;
-        grid-template-columns: repeat(6, 1fr);
-        gap: 16px;
-        position: relative;
-      }
-      .st {
-        padding-top: 16px;
-        border-top: 3px solid var(--y);
-      }
-      .st b {
-        font: 800 28px "Plus Jakarta Sans";
-        color: var(--y);
-      }
-      details {
-        background: var(--card);
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        padding: 16px 20px;
-        margin-bottom: 10px;
-      }
-      summary {
-        font-weight: 600;
-        cursor: pointer;
-      }
-      label {
-        display: block;
-        font-weight: 600;
-        font-size: 14px;
-        margin: 14px 0 6px;
-      }
-      input,
-      select,
-      textarea {
-        width: 100%;
-        min-height: 46px;
-        padding: 10px 14px;
-        border: 1.5px solid var(--line);
-        border-radius: 12px;
-        background: var(--card);
-        color: var(--fg);
-        font: inherit;
-      }
-      .bar {
-        height: 8px;
-        background: var(--soft);
-        border-radius: 9px;
-        overflow: hidden;
-      }
-      .bar i {
-        display: block;
-        height: 100%;
-        background: var(--y);
-      }
-      .chips {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-        margin: 16px 0;
-      }
-      .chip {
-        border: 1.5px solid var(--line);
-        background: var(--card);
-        color: var(--fg);
-        padding: 8px 16px;
-        border-radius: 99px;
-        cursor: pointer;
-        font: 500 14px Inter;
-      }
-      .chip.on {
-        background: var(--y);
-        border-color: var(--y);
-        color: #111;
-      }
-      .crumb {
-        font-size: 14px;
-        color: var(--mut);
-        margin-bottom: 16px;
-      }
-      .side {
-        display: grid;
-        grid-template-columns: 240px 1fr;
-        gap: 28px;
-      }
-      .side aside a {
-        display: block;
-        padding: 10px 14px;
-        border-radius: 10px;
-        font-weight: 500;
-      }
-      .side aside a.on,
-      .side aside a:hover {
-        background: var(--y);
-        color: #111;
-      }
-      .vid {
-        aspect-ratio: 16/9;
-        background: #111;
-        border-radius: 16px;
-        display: grid;
-        place-items: center;
-        color: var(--y);
-        font-size: 56px;
-      }
-      .sticky {
-        position: sticky;
-        top: 90px;
-        align-self: start;
-      }
-      .tw {
-        display: grid;
-        grid-template-columns: 1.6fr 1fr;
-        gap: 32px;
-      }
-      #toast {
-        position: fixed;
-        left: 50%;
-        bottom: calc(24px + env(safe-area-inset-bottom, 0px));
-        transform: translateX(-50%);
-        background: #111;
-        color: #fff;
-        border-left: 5px solid var(--y);
-        padding: 14px 22px;
-        border-radius: 12px;
-        display: none;
-        z-index: 50;
-      }
-      footer {
-        background: #111;
-        color: #ccc;
-        padding: 56px 0 28px;
-      }
-      footer a {
-        display: block;
-        margin: 6px 0;
-      }
-      footer h3 {
-        color: #fff;
-        font-size: 16px;
-        margin-bottom: 10px;
-      }
-      @media (max-width: 900px) {
-        .hero,
-        .g2,
-        .tw,
-        .side {
-          grid-template-columns: 1fr;
-        }
-        .g4,
-        .g3 {
-          grid-template-columns: 1fr 1fr;
-        }
-        .steps {
-          grid-template-columns: 1fr;
-          border-left: 3px solid var(--y);
-          padding-left: 18px;
-        }
-        .st {
-          border-top: 0;
-        }
-        .sticky {
-          position: static;
-        }
-        #burger {
-          display: block;
-        }
-        .links {
-          display: none;
-          position: absolute;
-          top: 68px;
-          left: 0;
-          right: 0;
-          background: var(--bg);
-          flex-direction: column;
-          align-items: stretch;
-          padding: 16px 20px;
-          border-bottom: 1px solid var(--line);
-        }
-        .links.open {
-          display: flex;
-        }
-        .links a {
-          padding: 10px 0;
-        }
-        section {
-          padding: 48px 0;
-        }
-      }
-      @media (max-width: 560px) {
-        .g4,
-        .g3 {
-          grid-template-columns: 1fr;
-        }
-        .b {
-          width: 100%;
-        }
-      }
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>NEZX Academy</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<style>
+/* Layout: sticky 3-part nav, dark hero with real founder photo, light content bands, real media gallery, one enquiry form */
+:root{
+  --yellow:#FFC928; --ink:#111111; --paper:#FAFAF8; --card:#FFFFFF; --soft:#F1F1EF; --line:#E5E5E2; --muted:#5f5f5a;
+  --fg:var(--ink); --bg:var(--paper); --on-yellow:#111111;
+  --display:'Plus Jakarta Sans',Inter,system-ui,sans-serif; --body:Inter,system-ui,sans-serif;
+  --ok:#1a7f4b; --err:#b3261e;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#121211;--fg:#FAFAF8;--card:#1c1c1a;--soft:#191917;--line:#32322f;--muted:#a9a9a2;--ok:#4cc38a;--err:#ff8a80;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121211;--fg:#FAFAF8;--card:#1c1c1a;--soft:#191917;--line:#32322f;--muted:#a9a9a2;--ok:#4cc38a;--err:#ff8a80;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{background:var(--bg);color:var(--fg);font:16px/1.65 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.08;letter-spacing:-.02em;margin:0;text-wrap:balance}
+h1{font-size:clamp(38px,6.4vw,76px)} h2{font-size:clamp(28px,4.2vw,46px)} h3{font-size:19px;letter-spacing:-.01em}
+p{margin:0} a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+section{padding-block:clamp(56px,8vw,104px)}
+.eyebrow{display:inline-block;font:600 12px var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.lead{color:var(--muted);font-size:clamp(16px,1.6vw,19px);max-width:56ch;margin-top:16px}
+.hl{background:var(--yellow);color:var(--on-yellow);padding:0 .14em;border-radius:6px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 
-      body {
-        background: #0c0c0b;
-        --bg: #0c0c0b;
-      }
-      .mq {
-        background: var(--y);
-        color: #111;
-        font: 800 14px "Plus Jakarta Sans";
-        overflow: hidden;
-        white-space: nowrap;
-        padding: 9px 0;
-      }
-      .mq div {
-        display: inline-block;
-        animation: mq 28s linear infinite;
-      }
-      @keyframes mq {
-        to {
-          transform: translateX(-50%);
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .mq div {
-          animation: none;
-        }
-      }
-      .big {
-        font-size: clamp(40px, 8vw, 92px);
-        text-transform: uppercase;
-        line-height: 0.98;
-      }
-      .kick {
-        display: inline-block;
-        border: 1px solid var(--y);
-        color: var(--y);
-        border-radius: 99px;
-        padding: 4px 14px;
-        font: 600 13px Inter;
-        margin-bottom: 18px;
-      }
-      .num {
-        font: 800 56px "Plus Jakarta Sans";
-        color: var(--y);
-        line-height: 1;
-      }
-      .mod {
-        background: var(--card);
-        border: 1px solid var(--line);
-        border-radius: 18px;
-        padding: 22px;
-      }
-      .mod ul {
-        list-style: none;
-        padding: 0;
-        margin-top: 10px;
-      }
-      .mod li {
-        padding: 3px 0 3px 24px;
-        position: relative;
-        font-size: 14px;
-      }
-      .mod li:before {
-        content: "✔";
-        position: absolute;
-        left: 0;
-        color: var(--y);
-      }
-      .band {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1px;
-        background: var(--line);
-        border-radius: 18px;
-        overflow: hidden;
-      }
-      .band div {
-        background: var(--card);
-        padding: 22px;
-        text-align: center;
-        font: 800 18px "Plus Jakarta Sans";
-      }
-      .seat {
-        background: #111;
-        color: var(--y);
-        text-align: center;
-        padding: 8px;
-        font: 600 13px Inter;
-      }
-      @media (max-width: 900px) {
-        .band {
-          grid-template-columns: 1fr;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <nav>
-      <div class="w">
-        <a class="logo" href="#home"><i>NEZX</i>Academy</a
-        ><button id="burger" aria-label="Menu">☰</button>
-        <div class="links" id="links">
-          <a href="#home">Home</a><a href="#courses">Explore Courses</a
-          ><a href="#why">Why NEZX</a><a href="#about">About Us</a
-          ><a href="#contact">Contact</a><a href="#login">Student Login</a
-          ><a class="b p" href="#courses">Explore Courses</a>
-        </div>
+/* nav */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:#0c0c0b;z-index:60}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:#0c0c0b;color:#fff;transition:box-shadow .3s}
+nav.sc{box-shadow:0 10px 30px #0008}
+.nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:68px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font:800 21px var(--display);letter-spacing:-.02em}
+.logo b{background:var(--yellow);color:#111;padding:1px 8px;border-radius:7px}
+.links{display:flex;gap:30px;font:500 14.5px var(--body)}
+.links a{opacity:.8;padding:6px 0;border-bottom:2px solid transparent;transition:.2s}
+.links a:hover{opacity:1;border-color:var(--yellow)}
+.navr{display:flex;justify-content:flex-end;gap:10px;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 22px;border-radius:12px;border:1.5px solid transparent;font:600 15px var(--body);cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s;position:relative;overflow:hidden;white-space:nowrap}
+.btn.y{background:var(--yellow);color:#111}
+.btn.y:hover{transform:translateY(-2px);box-shadow:0 10px 24px #ffc92844}
+.btn.y::after{content:"";position:absolute;top:0;left:-70%;width:40%;height:100%;background:linear-gradient(100deg,transparent,#fff8,transparent);transform:skewX(-20deg);transition:left .6s}
+.btn.y:hover::after{left:130%}
+.btn.o{border-color:currentColor;background:none;color:inherit}
+.btn.o:hover{background:#ffffff14}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+#burger{display:none;width:46px;height:46px;border-radius:12px;border:1px solid #ffffff33;background:none;color:#fff;font-size:20px;cursor:pointer}
+
+/* hero */
+.hero{background:#0c0c0b;color:#fff;padding-block:clamp(40px,6vw,80px) clamp(56px,7vw,96px);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,#ffc92833,transparent 65%);right:-120px;top:-160px;pointer-events:none}
+.hgrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(28px,5vw,72px);align-items:center;position:relative}
+.hero .eyebrow{color:var(--yellow)}
+.hero .lead{color:#c9c9c2}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.ticks{display:flex;gap:10px 22px;flex-wrap:wrap;margin-top:34px;font-size:14px;color:#d8d8d0}
+.ticks span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--yellow);margin-right:9px}
+.photo{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:4/5;background:#222;box-shadow:0 30px 60px #0008;transform:rotate(1.5deg);transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.photo:hover{transform:rotate(0)}
+.photo img{width:100%;height:100%;object-fit:cover;object-position:60% 40%;display:block}
+.photo figcaption{position:absolute;left:14px;bottom:14px;right:14px;background:#000b;backdrop-filter:blur(6px);padding:10px 14px;border-radius:12px;font-size:13px;color:#eee}
+.photo{margin:0}
+
+/* platforms */
+.plats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:36px}
+.plat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;transition:transform .25s,border-color .25s,box-shadow .25s}
+.plat:hover{transform:translateY(-4px);border-color:var(--yellow);box-shadow:0 16px 36px #0002}
+.plat small{display:block;color:var(--muted);font:600 11px var(--body);letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
+.plat ul{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:7px;font-size:14px}
+.plat li{padding-left:22px;position:relative}
+.plat li::before{content:"";position:absolute;left:0;top:.55em;width:10px;height:6px;border-left:2px solid var(--yellow);border-bottom:2px solid var(--yellow);transform:rotate(-45deg) translateY(-3px)}
+.plat .btn{margin-top:20px;width:100%;min-height:42px;font-size:14px}
+
+/* modules */
+.mods{background:var(--soft)}
+.mgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:36px}
+.mod{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.mod h3{font-size:16px}.mod ul{margin:10px 0 0;padding-left:18px;color:var(--muted);font-size:14px}
+.mod li{margin:3px 0}
+
+/* journey */
+.steps{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px;margin-top:40px;counter-reset:s}
+.st{border-top:3px solid var(--yellow);padding-top:14px;counter-increment:s}
+.st::before{content:counter(s,decimal-leading-zero);font:800 26px var(--display);color:var(--yellow);display:block;-webkit-text-stroke:0}
+.st p{color:var(--muted);font-size:14px;margin-top:4px}
+
+/* real work */
+.clips{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:36px}
+.clip{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:9/16;background:#222;margin:0}
+.clip video{width:100%;height:100%;object-fit:cover;display:block}
+.clip figcaption{position:absolute;inset:auto 0 0;padding:34px 12px 12px;background:linear-gradient(transparent,#000c);color:#fff;font-size:13px;font-weight:500}
+
+/* results */
+.res{background:#0c0c0b;color:#fff}
+.res .lead{color:#c9c9c2}.res .eyebrow{color:var(--yellow)}
+.rgrid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,.8fr) minmax(0,1.5fr);gap:18px;margin-top:40px;align-items:start}
+.shot{margin:0;background:#1a1a18;border:1px solid #2f2f2c;border-radius:18px;padding:12px}
+.shot img{width:100%;display:block;border-radius:10px;cursor:zoom-in}
+.shot figcaption{padding:12px 6px 4px;font-size:14px;color:#d8d8d0}
+.shot figcaption b{display:block;font:800 22px var(--display);color:var(--yellow);margin-bottom:2px;font-variant-numeric:tabular-nums}
+.note{margin-top:22px;font-size:13px;color:#a9a9a2;max-width:70ch}
+#zoom{position:fixed;inset:0;background:#000d;z-index:80;display:none;align-items:center;justify-content:center;padding:20px;cursor:zoom-out}
+#zoom.on{display:flex}#zoom img{max-width:100%;max-height:100%;border-radius:12px}
+
+/* who */
+.who{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:36px}
+.who div{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+.who p{color:var(--muted);font-size:14px;margin-top:8px}
+.fmt{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:99px;padding:8px 16px;font-size:14px;font-weight:500}
+
+/* enquiry */
+.enq{background:var(--soft)}
+.egrid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(28px,5vw,64px);align-items:start}
+.contact{margin-top:28px;display:grid;gap:12px;font-size:15px}
+.contact b{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+form,.done{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(20px,3vw,34px);box-shadow:0 20px 50px #0001}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:block;font-weight:600;font-size:14px;margin:16px 0 6px}
+.f2 label{margin-top:0}
+input,select,textarea{width:100%;min-height:48px;padding:11px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--fg);font:inherit;font-size:16px;transition:border-color .2s,box-shadow .2s}
+textarea{resize:vertical;min-height:110px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--yellow);box-shadow:0 0 0 4px #ffc92833}
+input[aria-invalid="true"]{border-color:var(--err)}
+.err{color:var(--err);font-size:13px;margin-top:5px;min-height:0}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg input{position:absolute;opacity:0;pointer-events:none;width:1px;min-height:0}
+.seg label{margin:0;border:1.5px solid var(--line);border-radius:12px;padding:11px 18px;cursor:pointer;font-weight:500;background:var(--bg);transition:.2s}
+.seg input:checked+label{background:var(--yellow);border-color:var(--yellow);color:#111}
+.seg input:focus-visible+label{outline:3px solid var(--yellow);outline-offset:2px}
+form .btn{margin-top:24px;width:100%;min-height:52px;font-size:16px}
+.fine{font-size:13px;color:var(--muted);margin-top:12px}
+.done{text-align:left}.done .tick{width:54px;height:54px;border-radius:50%;background:var(--yellow);color:#111;display:grid;place-items:center;font-size:26px;font-weight:800;margin-bottom:16px;animation:pop .5s cubic-bezier(.2,1.4,.4,1)}
+@keyframes pop{from{transform:scale(.4);opacity:0}}
+.done .row{margin-top:20px}
+.done .btn.o{color:var(--fg)}
+.status{font-size:14px;margin-top:10px;color:var(--muted)}
+
+/* footer + inbox */
+footer{background:#0c0c0b;color:#c9c9c2;padding-block:44px max(30px,env(safe-area-inset-bottom,0px))}
+.fgrid{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:flex-start}
+footer a:hover{color:var(--yellow)}.fsm{font-size:13px;margin-top:26px;color:#8c8c86;display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
+.inbox{min-height:70vh;padding-block:56px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin-top:14px;display:grid;gap:6px}
+.item .meta{color:var(--muted);font-size:13px}.item .tg{display:inline-block;background:var(--yellow);color:#111;font:600 12px var(--body);padding:2px 10px;border-radius:99px;margin-right:6px}
+[hidden]{display:none!important}
+
+/* motion: transform-only entrances so content is always visible */
+.rise{transform:translateY(26px);transition:transform .8s cubic-bezier(.2,.7,.2,1) var(--d,0ms)}
+.rise.in{transform:none}
+.hero h1{line-height:1.1}
+.hero h1 .hl{background:none;color:inherit;padding:0;margin:0;border-radius:0}
+/* spacing rhythm */
+section{padding-block:clamp(64px,8vw,112px)}
+.eyebrow{margin-bottom:18px}
+h2{margin:0}
+.lead{margin-top:20px}
+.plats,.mgrid,.clips,.rgrid,.who{margin-top:48px}
+.steps{margin-top:64px}
+.fmt{margin-top:32px}
+.row{margin-top:36px}
+.hero .lead{margin-top:24px}
+.ticks{margin-top:40px}
+.contact{margin-top:32px}
+.note{margin-top:28px}
+form .btn{margin-top:28px}
+label{margin:20px 0 8px}
+.f2 label{margin-top:0}
+.hero{padding-block:clamp(48px,7vw,96px) clamp(64px,8vw,112px)}
+.mq{background:var(--yellow);color:#111;font:800 13px var(--display);letter-spacing:.06em;overflow:hidden;white-space:nowrap;padding:10px 0}
+.mq div{display:inline-block;animation:mq 40s linear infinite}
+@keyframes mq{to{transform:translateX(-50%)}}
+#bar{position:fixed;top:0;left:0;height:3px;width:0;background:var(--yellow);z-index:70}
+
+/* responsive */
+@media (max-width:1020px){
+  .nav{grid-template-columns:1fr auto}
+  #burger{display:block}.navr .btn{display:none}
+  .links{display:none;position:absolute;left:0;right:0;top:100%;background:#0c0c0b;flex-direction:column;gap:0;padding:8px max(16px,env(safe-area-inset-left,0px)) 20px;border-top:1px solid #ffffff22;box-shadow:0 24px 40px #0009}
+  .links.open{display:flex}.links a{padding:14px 0;border-bottom:1px solid #ffffff14;font-size:16px}
+  .links .mcta{display:inline-flex;margin-top:14px;border:0;background:var(--yellow);color:#111;justify-content:center;border-radius:12px;font-weight:600}
+  .plats,.mgrid,.who{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .steps{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:26px}
+  .clips{grid-template-columns:repeat(5,minmax(160px,1fr));overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px}
+  .clip{scroll-snap-align:start}
+  .rgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.rgrid .shot:last-child{grid-column:1/-1}
+}
+@media (min-width:1021px){.links .mcta{display:none}}
+@media (max-width:800px){
+  .hgrid,.egrid{grid-template-columns:1fr}
+  .photo{max-width:420px;transform:none}
+}
+@media (max-width:560px){
+  .plats,.mgrid,.who,.rgrid,.f2{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr;border-left:3px solid var(--yellow);padding-left:18px;gap:20px}.st{border-top:0;padding-top:0}
+  .clips{grid-template-columns:repeat(5,70%)}
+  .btn{width:100%}.navr .btn{width:auto}
+  .row .btn{flex:1 1 100%}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}.rise{transform:none}}
+</style>
+
+<div id="bar"></div>
+<nav id="nav"><div class="wrap nav">
+  <a class="logo" href="#top" aria-label="NEZX Academy home"><b>NEZX</b>Academy</a>
+  <div class="links" id="links">
+    <a href="#top">Home</a><a href="#courses">Courses</a><a href="#learn">What you learn</a><a href="#work">Our work</a><a href="#results">Results</a><a href="#enquire">Contact</a>
+    <a class="btn mcta" href="#enquire">Enquire now</a>
+  </div>
+  <div class="navr"><a class="btn y" href="#enquire">Enquire now</a><button id="burger" aria-label="Open menu" aria-expanded="false">&#9776;</button></div>
+</div></nav>
+
+<main id="main">
+<div id="site">
+<header class="hero" id="top"><div class="wrap hgrid">
+  <div>
+    <span class="eyebrow">Learn. Launch. Sell. Grow.</span>
+    <h1>Turn your skills into an <span class="hl">online business.</span></h1>
+    <p class="lead">Practical e-commerce training for Etsy, Amazon and Flipkart, taught by a seller who runs real stores. Small batches, live sessions, online or in Roorkee.</p>
+    <div class="row"><a class="btn y" href="#enquire">Enquire now</a><a class="btn o" href="#courses">See courses</a></div>
+    <div class="ticks"><span>Online + offline classes</span><span>Small batches</span><span>Doubt support after class</span></div>
+  </div>
+  <figure class="photo"><img src="media/workshop.jpg" alt="NEZX founder inspecting a brass bowl with a craftsman in a workshop" width="900" height="1200" fetchpriority="high"><figcaption>Learning from real products and real makers, not slides.</figcaption></figure>
+</div></header>
+
+<div class="mq" aria-hidden="true"><div>LEARN ✦ RESEARCH ✦ BUILD ✦ LIST ✦ SELL ✦ GROW ✦ LEARN ✦ RESEARCH ✦ BUILD ✦ LIST ✦ SELL ✦ GROW ✦ LEARN ✦ RESEARCH ✦ BUILD ✦ LIST ✦ SELL ✦ GROW ✦ LEARN ✦ RESEARCH ✦ BUILD ✦ LIST ✦ SELL ✦ GROW ✦ </div></div>
+
+<section id="courses"><div class="wrap">
+  <span class="eyebrow">Courses</span>
+  <h2 class="rise">Choose your selling platform.</h2>
+  <p class="lead">Four complete programs. Each one takes you from account setup to your first orders.</p>
+  <div class="plats" id="plats"></div>
+</div></section>
+
+<section class="mods" id="learn"><div class="wrap">
+  <span class="eyebrow">What you learn</span>
+  <h2 class="rise">Eight modules, zero to hero.</h2>
+  <p class="lead">Step by step, practical and result oriented. Every module ends with work you do on a real marketplace.</p>
+  <div class="mgrid" id="mods"></div>
+  <div class="steps" id="steps"></div>
+</div></section>
+
+<section id="work"><div class="wrap">
+  <span class="eyebrow">Our work</span>
+  <h2 class="rise">Built around practice, not theory.</h2>
+  <p class="lead">Unpacking stock, listing products, packing orders. This is what a working day looks like, and what you practise in class.</p>
+  <div class="clips" id="clips"></div>
+</div></section>
+
+<section class="res" id="results"><div class="wrap">
+  <span class="eyebrow">Real dashboards</span>
+  <h2 class="rise">Taught by someone who sells.</h2>
+  <p class="lead">Screenshots from the founder's own Etsy and Amazon seller accounts. Tap an image to enlarge it.</p>
+  <div class="rgrid">
+    <figure class="shot"><img src="media/etsy-year-revenue.jpg" alt="Etsy stats screen showing total revenue of 81,80,143 rupees this year" width="552" height="1200" loading="lazy"><figcaption><b>₹81,80,143</b>Etsy revenue, Jan to Nov</figcaption></figure>
+    <figure class="shot"><img src="media/etsy-year-orders.jpg" alt="Etsy stats screen showing 288 total orders this year" width="552" height="1200" loading="lazy"><figcaption><b>288 orders</b>Etsy orders, same period</figcaption></figure>
+    <figure class="shot"><img src="media/amazon-sales.jpg" alt="Amazon Seller Central sales chart showing 49,834.30 dollars and 622 units" width="1000" height="518" loading="lazy"><figcaption><b>$49,834.30</b>Amazon ordered product sales, 622 units (Sep 2024 to May 2025)</figcaption></figure>
+  </div>
+  <p class="note">These are the founder's own store results and are shown as proof of hands-on experience. Your results depend on your product, effort and market, and are not guaranteed.</p>
+</div></section>
+
+<section id="who"><div class="wrap">
+  <span class="eyebrow">Who can join</span>
+  <h2 class="rise">No experience needed.</h2>
+  <div class="who">
+    <div><h3>Students</h3><p>Build a real skill and a side income while you study.</p></div>
+    <div><h3>Homemakers</h3><p>Start a business from home on your own schedule.</p></div>
+    <div><h3>Working professionals</h3><p>Add a second income with evening or online batches.</p></div>
+    <div><h3>Aspiring entrepreneurs</h3><p>Launch your first product with guidance at each step.</p></div>
+  </div>
+  <div class="fmt"><span class="chip">Live practical sessions</span><span class="chip">Online classes</span><span class="chip">Offline in Roorkee</span><span class="chip">Flexible batch timings</span><span class="chip">Support after the course</span></div>
+</div></section>
+
+<section class="enq" id="enquire"><div class="wrap egrid">
+  <div>
+    <span class="eyebrow">Enquire</span>
+    <h2>Tell us what you want to sell.</h2>
+    <p class="lead">Fill in the form and we will contact you with batch dates, fees and the right course for you.</p>
+    <div class="contact">
+      <div><b>Call / WhatsApp</b><a href="https://wa.me/916396301025" target="_blank" rel="noopener">+91 63963 01025</a></div>
+      <div><b>Location</b>Roorkee, Uttarakhand, India. Offline classes at our center.</div>
+      <div><b>Reply time</b>Usually within one working day.</div>
+    </div>
+  </div>
+  <div>
+    <form id="form" novalidate>
+      <div class="f2">
+        <div><label for="name">Full name</label><input id="name" name="name" autocomplete="name" required><div class="err" id="e-name"></div></div>
+        <div><label for="phone">Phone / WhatsApp</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="10-digit number" required><div class="err" id="e-phone"></div></div>
       </div>
-    </nav>
-    <main id="app"></main>
-    <footer>
-      <div class="w">
-        <div class="g g3" style="grid-template-columns: 2fr 1fr 1fr 1.5fr">
-          <div>
-            <div class="logo" style="color: #fff"><i>NEZX</i>Academy</div>
-            <p style="margin-top: 10px">
-              Learn. Launch. Sell. Grow. Practical e-commerce training from
-              Roorkee, Uttarakhand.
-            </p>
-            <p class="mut" style="margin-top: 8px">
-              Social: Instagram · YouTube · LinkedIn (placeholders)
-            </p>
-          </div>
-          <div>
-            <h3>Explore</h3>
-            <a href="#home">Home</a><a href="#courses">Courses</a
-            ><a href="#why">Why NEZX</a><a href="#about">About</a>
-          </div>
-          <div>
-            <h3>Students</h3>
-            <a href="#login">Student portal</a><a href="#dashboard">Dashboard</a
-            ><a href="#contact">Support</a>
-          </div>
-          <div>
-            <h3>Contact</h3>
-            <p>+91 6396301025</p>
-            <p>Roorkee, Uttarakhand, India</p>
-            <a href="#">Privacy Policy</a><a href="#">Terms and Conditions</a>
-          </div>
-        </div>
-        <p style="margin-top: 32px; font-size: 13px">
-          © NEZX Academy. Prototype – all prices, durations and testimonials are
-          placeholders.
-        </p>
+      <label for="email">Email <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+      <input id="email" name="email" type="email" autocomplete="email">
+      <div class="err" id="e-email"></div>
+      <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="website">Leave empty</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+      <label for="course">Course you are interested in</label>
+      <select id="course" name="course"><option>Etsy Selling</option><option>Amazon.in Selling</option><option>Amazon Global Selling</option><option>Flipkart Selling</option><option>Not sure yet</option></select>
+      <label id="lm">Preferred mode</label>
+      <div class="seg" role="radiogroup" aria-labelledby="lm">
+        <input type="radio" name="mode" id="m1" value="Online" checked><label for="m1">Online</label>
+        <input type="radio" name="mode" id="m2" value="Offline (Roorkee)"><label for="m2">Offline (Roorkee)</label>
       </div>
-    </footer>
-    <div id="toast"></div>
-    <script>
-      const C = [
-        {
-          id: "etsy",
-          n: "Etsy Selling",
-          t: "Handmade to Global",
-          d: "Open and run an Etsy shop that reaches buyers worldwide.",
-          b: [
-            "Account Setup",
-            "Shop Customization",
-            "Product Research",
-            "Listing & SEO",
-            "Digital & Physical Products",
-            "Order Handling",
-            "Scaling Strategies",
-          ],
-        },
-        {
-          id: "amazonin",
-          n: "Amazon.in Selling",
-          t: "Sell Across India",
-          d: "Register, list and manage products on Amazon.in.",
-          b: [
-            "Seller Account Setup",
-            "Product Research",
-            "Listing Optimization",
-            "Pricing & Inventory",
-            "Order & Customer Handling",
-            "Growth Strategies",
-          ],
-        },
-        {
-          id: "global",
-          n: "Amazon Global Selling",
-          t: "Go Beyond Borders",
-          d: "Take your products to Amazon marketplaces worldwide.",
-          b: [
-            "Global Account Setup",
-            "International Market Research",
-            "Product Listing & Compliance",
-            "Shipping & Taxation Basics",
-            "Currency & Payment Setup",
-            "Grow Your Brand Worldwide",
-          ],
-        },
-        {
-          id: "flipkart",
-          n: "Flipkart Selling",
-          t: "Sell to Millions",
-          d: "Launch and grow a seller account on Flipkart.",
-          b: [
-            "Seller Registration",
-            "Product Listing",
-            "Inventory & Order Management",
-            "Pricing Strategy",
-            "Promotions & Growth Tips",
-          ],
-        },
-      ];
-      const M = [
-        [
-          "E-Commerce Basics",
-          [
-            "What is E-commerce?",
-            "How Online Selling Works",
-            "Overview of Etsy, Amazon & Flipkart",
-            "Choosing the Right Platform",
-            "Basic Business Knowledge",
-          ],
-        ],
-        [
-          "Account & Shop Setup",
-          [
-            "Account Creation",
-            "Shop / Seller Profile Setup",
-            "Shop Customization",
-            "Important Settings",
-            "Understanding Dashboards",
-          ],
-        ],
-        [
-          "Product & Niche Research",
-          [
-            "Finding Profitable Products",
-            "Niche Selection",
-            "Market Demand Analysis",
-            "Competitor Research",
-            "Product Validation",
-          ],
-        ],
-        [
-          "Product Listing",
-          [
-            "Professional Listings",
-            "SEO Friendly Titles",
-            "Product Descriptions",
-            "Images & Mockups",
-            "Tags, Categories & Pricing",
-          ],
-        ],
-        [
-          "SEO & Optimization",
-          [
-            "Keyword Research",
-            "Marketplace SEO",
-            "Listing Optimization",
-            "Search Visibility",
-            "Tips to Rank Higher",
-          ],
-        ],
-        [
-          "Inventory & Order Management",
-          [
-            "Inventory Management",
-            "Order Processing",
-            "Customer Handling",
-            "Returns & Refunds",
-            "Day-to-Day Management",
-          ],
-        ],
-        [
-          "Business Growth Strategies",
-          [
-            "Scaling Your Shop",
-            "Improving Sales & Conversion",
-            "Understanding Competition",
-            "Marketing & Promotions",
-            "Common Mistakes to Avoid",
-          ],
-        ],
-        [
-          "Practical Training",
-          [
-            "Live Practical Sessions",
-            "Real Product Research",
-            "Live Listing Creation",
-            "Marketplace Walkthroughs",
-            "Doubt Solving Sessions",
-          ],
-        ],
-      ];
-      const mods = () =>
-        `<div class="g g4">${M.map((m, i) => `<div class="mod"><div class="num">0${i + 1}</div><h3 style="font-size:17px;margin-top:6px">${m[0]}</h3><ul>${m[1].map((x) => `<li>${x}</li>`).join("")}</ul></div>`).join("")}</div>`;
-      const mq = `<div class="mq"><div>${"LEARN ✦ LAUNCH ✦ SELL ✦ GROW ✦ ONLINE + OFFLINE CLASSES ✦ SMALL BATCHES ✦ LIMITED SEATS ✦ ".repeat(8)}</div></div>`;
-      const J = [
-        ["LEARN", "Gain essential knowledge."],
-        ["RESEARCH", "Discover opportunities."],
-        ["BUILD", "Set up your shop."],
-        ["LIST", "Create and optimize listings."],
-        ["SELL", "Start your selling journey."],
-        ["GROW", "Develop your business."],
-      ];
-      const $ = (s) => document.querySelector(s);
-      let sel = "etsy";
-      const toast = (m) => {
-        const t = $("#toast");
-        t.textContent = m;
-        t.style.display = "block";
-        setTimeout(() => (t.style.display = "none"), 2800);
-      };
-      const card = (c) =>
-        `<div class="c"><span class="tag">${c.n.split(" ")[0]}</span><span class="tag s">Beginner</span><h3>${c.n}</h3><p class="mut" style="margin:8px 0 14px">${c.d}</p><ul style="list-style:none;padding:0;font-size:14px">${c.b
-          .slice(0, 4)
-          .map(
-            (x) =>
-              `<li style="padding:2px 0"><span style="color:var(--y)">✔</span> ${x}</li>`,
-          )
-          .join(
-            "",
-          )}</ul><p class="mut" style="font-size:13px;margin-top:10px">⏱ [Duration] · Online / Offline</p><div class="row" style="margin-top:16px"><a class="b o" href="#course-${c.id}">View Course</a><a class="b p" href="#checkout" data-c="${c.id}">Enrol Now</a></div></div>`;
-      const hdr = (t, s) =>
-        `<h2>${t}</h2>${s ? `<p class="mut" style="max-width:640px">${s}</p>` : ""}`;
-      const fin = `<section class="dark cta"><div class="w"><h2>Your E-Commerce Journey <span style="color:var(--y)">Starts Here!</span></h2><p class="mut" style="max-width:560px;margin:auto">More than just a course – it’s a new beginning. Start building practical skills and take your first step towards online business.</p><div class="row"><a class="b p" href="#courses">Explore Courses</a><a class="b o" style="color:#fff;border-color:#fff" href="#contact">Talk to an Advisor</a></div></div></section>`;
-      const steps = `<div class="steps">${J.map((s, i) => `<div class="st"><b>0${i + 1}</b><h3>${s[0]}</h3><p class="mut">${s[1]}</p></div>`).join("")}</div>`;
-      const form = `<form id="enq" onsubmit="return false"><label>Full name</label><input required><label>Phone number</label><input type="tel" required><label>Email</label><input type="email"><label>Interested course</label><select>${C.map((c) => `<option>${c.n}</option>`).join("")}</select><label>Preferred learning mode</label><select><option>Online</option><option>Offline (Roorkee)</option></select><label>Message</label><textarea rows="4"></textarea><button class="b p" style="margin-top:18px" onclick="if($('#enq').reportValidity()){toast('Enquiry submitted – we will contact you soon.');}">Submit Enquiry</button></form>`;
-      const R = {
-        home: () => `<div class="seat">Limited seats · Book your spot · Call / WhatsApp +91 6396301025</div><section style="padding-bottom:40px"><div class="w hero"><div><span class="kick">Learn Skills. Earn Independence.</span><h1 class="big">Turn your skills into <span style="color:var(--y)">income.</span></h1><p class="mut" style="margin-top:18px;font-size:18px;max-width:520px">Learn e-commerce. Build your future. Practical, step-by-step training for Etsy, Amazon and Flipkart – from zero to hero.</p><div class="row"><a class="b p" href="#courses">Join NEZX Academy →</a><a class="b o" href="#contact">Talk to an Advisor</a></div></div><div class="ph"><span>Photo: learner at laptop (replace)</span></div></div></section>${mq}
-<section style="padding:36px 0"><div class="w"><div class="band"><div>Online + Offline Classes</div><div>Small Batches</div><div>Dedicated Doubt Support</div></div></div></section>
-<section style="padding-top:20px"><div class="w">${hdr("Choose Your Selling Platform.")}<div class="g g4" style="margin-top:28px">${C.map((c) => `<a class="c" href="#course-${c.id}" style="background:#fff;color:#111"><h3>${c.n.replace(" Selling", "")}</h3><p style="color:#555;text-transform:uppercase;font-size:12px;letter-spacing:.06em">${c.t}</p></a>`).join("")}</div></div></section>
-<section style="background:var(--soft)"><div class="w"><span class="kick">Complete E-Commerce Training</span><h2 class="big" style="font-size:clamp(30px,5vw,56px)">Your 8-module blueprint.</h2><p class="mut" style="margin:10px 0 28px">From zero to hero – step by step, practical, result oriented.</p>${mods()}<div class="row"><a class="b p" href="#courses">Explore Courses</a></div></div></section>
-<section><div class="w">${hdr("Our Courses", "Complete step-by-step training for online selling.")}<div class="g g4" style="margin-top:28px">${C.map(card).join("")}</div></div></section>
-<section style="background:var(--soft)"><div class="w">${hdr("Your Journey With NEZX")}<div style="margin-top:32px">${steps}</div></div></section>
-<section><div class="w">${hdr("Why Choose NEZX Academy?")}<div class="g g3" style="margin-top:28px">${["100% Practical Training", "Real E-commerce Experience", "Step-by-Step Guidance", "Learn from Real Market Trends", "Support Until You Start", "Guidance Even After Course Completion"].map((f) => `<div class="c"><span style="color:var(--y);font-size:22px">★</span><h3 style="margin-top:8px;font-size:18px">${f}</h3></div>`).join("")}</div></div></section>
-<section style="background:var(--soft)"><div class="w g g2" style="align-items:center"><div>${hdr("Who can join?")}<p class="mut">Students · Housewives · Working Professionals · Beginners · Anyone who wants to learn. Beginner to advanced training with live + offline classes.</p></div><div class="c"><h3>Flexible batch timings</h3><p class="mut" style="margin-top:8px">Morning – Students / Housewives<br>Evening – Working Professionals<br>Online – Live + Recorded</p></div></div></section>
-<section><div class="w">${hdr("Student testimonials")}<div class="g g3" style="margin-top:24px">${[1, 2, 3].map((i) => `<div class="c"><span class="tag s">PLACEHOLDER</span><p class="mut">Genuine student feedback will appear here once supplied.</p><b>Student name ${i}</b></div>`).join("")}</div></div></section>
-<section style="background:var(--soft)"><div class="w g g2"><div>${hdr("Offline in Roorkee. Live Online Everywhere.")}<p class="mut">Offline classes at our Roorkee location · Call / WhatsApp 6396301025</p><div class="row"><a class="b p" href="https://wa.me/916396301025">WhatsApp us</a></div></div><div class="ph" style="aspect-ratio:16/9"><span>Map placeholder</span></div></div></section>${fin}`,
-        courses: () =>
-          `<section><div class="w"><div class="crumb">Home / Courses</div><h1 style="font-size:clamp(30px,5vw,52px)">Find the Right Course for Your Selling Journey.</h1><input placeholder="Search courses…" style="margin-top:24px" oninput="document.querySelectorAll('#cg>.c').forEach(e=>e.style.display=e.textContent.toLowerCase().includes(this.value.toLowerCase())?'':'none')"><div class="chips">${["All", "Etsy", "Amazon", "Flipkart", "Beginner", "Intermediate", "Advanced", "Online", "Offline"].map((x, i) => `<button class="chip ${i ? "" : "on"}" onclick="this.classList.toggle('on')">${x}</button>`).join("")}</div><div class="g g2" id="cg">${C.map((c) => card(c).replace('</p><p class="mut" style="font-size:14px">', '</p><p style="font-size:14px"><b>You will learn:</b> setup, research, listing, growth.</p><p class="mut" style="font-size:14px">').replace('<div class="row"', '<p class="lg" style="margin-top:14px">₹[Price]</p><div class="row"')).join("")}</div></div></section>`,
-        why: () =>
-          `<section class="dark"><div class="w"><h1>Practical Learning. <span class="hl">Real-World Skills.</span></h1><p class="mut" style="margin-top:16px;max-width:600px">NEZX teaches by doing: real marketplaces, real listings, small batches.</p></div></section><section><div class="w g g3">${[
-            [
-              "Marketplace-focused",
-              "Every lesson is built around how the platforms actually work.",
-            ],
-            ["Small batches", "Personal attention and room for questions."],
-            ["Dedicated doubt support", "Help whenever you get stuck."],
-            ["Online and offline", "Attend in Roorkee or join live online."],
-          ]
-            .map(
-              (x) =>
-                `<div class="c"><h3>${x[0]}</h3><p class="mut">${x[1]}</p></div>`,
-            )
-            .join(
-              "",
-            )}</div></section><section style="background:var(--soft)"><div class="w">${hdr("The 6-Step NEZX Journey.")}<div style="margin-top:28px">${steps}</div></div></section>${fin}`,
-        about: () =>
-          `<section><div class="w"><h1 style="font-size:clamp(30px,5vw,52px)">We help ordinary people start <span class="hl">real online businesses.</span></h1><div class="g g2" style="margin-top:36px">${[
-            [
-              "Our story",
-              "[Founder story placeholder – to be supplied by NEZX.]",
-            ],
-            [
-              "Our mission",
-              "Make practical e-commerce skills accessible to everyone.",
-            ],
-            [
-              "Our vision",
-              "A community of confident online sellers across India.",
-            ],
-            [
-              "Our commitment",
-              "Honest guidance, small batches and support after class.",
-            ],
-          ]
-            .map(
-              (x) =>
-                `<div class="c"><h3>${x[0]}</h3><p class="mut" style="margin-top:8px">${x[1]}</p></div>`,
-            )
-            .join("")}</div></div></section>${fin}`,
-        contact: () =>
-          `<section><div class="w g g2"><div><h1 style="font-size:clamp(30px,5vw,52px)">Let’s talk about your <span class="hl">first store.</span></h1><p class="mut" style="margin:16px 0">+91 6396301025<br>Roorkee, Uttarakhand, India<br>Online and offline training available</p><a class="b p" href="https://wa.me/916396301025">Chat on WhatsApp</a><div class="ph" style="background:var(--soft);color:var(--mut);margin-top:28px"><span style="background:none">Map placeholder</span></div></div><div class="c">${form}</div></div></section>`,
-        checkout: () => {
-          const c = C.find((x) => x.id == sel);
-          return `<section><div class="w"><div class="crumb">Course / Checkout</div><div class="tw"><div class="c"><h2>Student information</h2><label>Full name</label><input><label>Email</label><input type="email"><label>Mobile number</label><input type="tel"><label>Course</label><select onchange="sel=C[this.selectedIndex].id;route()">${C.map((x) => `<option ${x.id == sel ? "selected" : ""}>${x.n}</option>`).join("")}</select><label>Coupon code</label><input placeholder="Enter code"></div><div class="c sticky"><div class="ph" style="aspect-ratio:16/7"><span>${c.n}</span></div><h3 style="margin-top:14px">${c.n}</h3><p class="mut">Price ₹[Price]<br>Discount −₹[Discount]</p><p class="lg" style="font-size:24px;margin:8px 0">Total ₹[Total]</p><label>Payment method</label><select><option>UPI</option><option>Card</option><option>Net banking</option></select><a class="b p" style="width:100%;margin-top:18px" href="#success">Complete Payment</a><p class="mut" style="font-size:13px;margin-top:10px">🔒 Secure payment (provider to be integrated)</p></div></div></div></section>`;
-        },
-        success: () =>
-          `<section class="cta"><div class="w" style="max-width:640px"><div class="lg" style="font-size:72px;color:var(--y)">✓</div><h1 style="font-size:clamp(30px,5vw,48px)">You’re Officially Enrolled!</h1><p class="mut" style="margin:14px 0">Confirmation sent to your email. Course: ${C.find((x) => x.id == sel).n} · Transaction ID: [TXN-PLACEHOLDER]</p><div class="c" style="text-align:left"><b>Next steps</b><p class="mut">1. Log in to your student portal. 2. Check batch timings. 3. Join the first session.</p></div><div class="row"><a class="b p" href="#dashboard">Go to Dashboard</a><a class="b o" href="#home">Return Home</a></div><p class="mut" style="margin-top:14px">Support: +91 6396301025</p></div></section>`,
-        login: () =>
-          `<section><div class="w g g2" style="align-items:center"><div class="ph" style="aspect-ratio:1"><span>Learning image placeholder</span></div><div class="c"><h1 style="font-size:36px">Welcome back.</h1><label>Email or mobile</label><input><label>Password</label><input type="password"><p style="margin:10px 0"><a href="#contact" style="text-decoration:underline">Forgot password?</a></p><a class="b p" style="width:100%" href="#dashboard">Login</a><p class="mut" style="margin-top:14px;font-size:14px">Need help? +91 6396301025 · <a href="#courses" style="text-decoration:underline">Explore courses</a></p></div></div></section>`,
-        dashboard: () =>
-          `<section><div class="w side">${aside("Overview")}<div><h1 style="font-size:32px">Welcome back, Student 👋</h1><div class="g g2" style="margin:24px 0">${C.slice(
-            0,
-            2,
-          )
-            .map(
-              (c, i) =>
-                `<div class="c"><h3>${c.n}</h3><div class="bar" style="margin:12px 0"><i style="width:${[35, 10][i]}%"></i></div><p class="mut" style="font-size:14px">${[35, 10][i]}% complete (sample)</p><a class="b p" style="margin-top:12px" href="#learn">Continue Learning</a></div>`,
-            )
-            .join(
-              "",
-            )}</div><div class="g g3"><div class="c"><h3>Recent activity</h3><p class="mut">Lesson 1.2 completed (sample)</p></div><div class="c"><h3>Upcoming live</h3><p class="mut">[Date / time placeholder]</p></div><div class="c"><h3>Support</h3><a class="b o" href="#contact">Ask for Support</a></div></div></div></div></section>`,
-        learn: () =>
-          `<section><div class="w side">${aside("My Courses")}<div><div class="crumb">Etsy Selling · Module 01</div><div class="vid">▶</div><h2 style="margin-top:20px">Lesson 1.2 – Opening your Etsy account</h2><p class="mut">Lesson description placeholder.</p><div class="bar" style="margin:16px 0"><i style="width:35%"></i></div><div class="row"><button class="b p" onclick="toast('Lesson marked as completed')">Mark as Completed</button><button class="b o">← Previous</button><button class="b d">Next →</button></div><div class="c" style="margin-top:20px"><b>Resources</b><p class="mut">📄 Checklist.pdf (placeholder)</p></div><label>Ask a question</label><textarea rows="3"></textarea><button class="b p" style="margin-top:10px" onclick="toast('Question sent')">Send</button></div></div></section>`,
-      };
-      function aside(on) {
-        return `<aside>${[
-          ["Overview", "dashboard"],
-          ["My Courses", "learn"],
-          ["Learning Resources", "learn"],
-          ["Live Sessions", "dashboard"],
-          ["Support", "contact"],
-          ["Profile Settings", "dashboard"],
-          ["Logout", "home"],
-        ]
-          .map(
-            (x) =>
-              `<a class="${x[0] == on ? "on" : ""}" href="#${x[1]}">${x[0]}</a>`,
-          )
-          .join("")}</aside>`;
-      }
-      function detail(id) {
-        const c = C.find((x) => x.id == id);
-        return `<section class="dark"><div class="w tw"><div><div class="crumb mut">Courses / ${c.n}</div><span class="tag">Beginner</span><h1 class="big" style="font-size:clamp(34px,6vw,64px)">${c.n}</h1><p class="mut" style="margin-top:14px">${c.d}</p><p style="margin-top:12px">⏱ [Duration] · Online &amp; Offline</p></div><div class="ph"><span>${c.n} image</span></div></div></section>
-<section><div class="w tw"><div><h2>What you will learn</h2><div class="g g3" style="margin:20px 0 40px">${c.b.map((x) => `<div class="c" style="padding:16px"><span style="color:var(--y)">✔</span> <b>${x}</b></div>`).join("")}</div><h2>Curriculum</h2><p class="mut" style="margin-bottom:14px">Shared programme outline – course-specific syllabus to be confirmed.</p>${M.map((m, i) => `<details><summary>Module 0${i + 1}: ${m[0]}</summary><p class="mut" style="margin-top:8px">${m[1].join(" · ")}</p></details>`).join("")}<h2 style="margin-top:40px">FAQ</h2><details><summary>Do I need experience?</summary><p class="mut">No – beginners are welcome.</p></details><details><summary>Online or offline?</summary><p class="mut">Both formats are available.</p></details><h2 style="margin-top:40px">Related courses</h2><div class="g g2">${C.filter(
-          (x) => x.id != id,
-        )
-          .slice(0, 2)
-          .map(card)
-          .join("")}</div></div>
-<div class="c sticky"><p class="lg" style="font-size:28px">₹[Price]</p><p class="mut">Level: Beginner · [Duration]</p><a class="b p" style="width:100%;margin:14px 0 8px" href="#checkout" data-c="${id}">Enrol Now</a><a class="b o" style="width:100%" href="#contact">Talk to an Advisor</a></div></div></section>`;
-      }
-      function route() {
-        let h = location.hash.slice(1) || "home";
-        const app = $("#app");
-        if (h.startsWith("course-")) app.innerHTML = detail(h.slice(7));
-        else app.innerHTML = (R[h] || R.home)();
-        document
-          .querySelectorAll(".links a")
-          .forEach((a) =>
-            a.classList.toggle("on", a.getAttribute("href") == "#" + h),
-          );
-        $("#links").classList.remove("open");
-        window.scrollTo(0, 0);
-      }
-      document.addEventListener("click", (e) => {
-        const a = e.target.closest("[data-c]");
-        if (a) sel = a.dataset.c;
-      });
-      $("#burger").onclick = () => $("#links").classList.toggle("open");
-      addEventListener("hashchange", route);
-      route();
-    </script>
-  </body>
-</html>
+      <label for="msg">Message <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+      <textarea id="msg" name="msg" rows="4" placeholder="Anything we should know? For example your product idea or preferred timing."></textarea>
+      <button class="btn y" type="submit" id="send">Send enquiry</button>
+      <p class="fine">We use your details only to reply to this enquiry.</p>
+    </form>
+    <div class="done" id="done" hidden aria-live="polite">
+      <div class="tick">✓</div>
+      <h3 id="dh" style="font-size:24px">Almost done</h3>
+      <p id="dp" class="lead" style="margin-top:10px"></p>
+      <div class="row"><a class="btn y" id="wa" href="#" target="_blank" rel="noopener">Send on WhatsApp</a><button class="btn o" id="again" type="button">New enquiry</button></div>
+      <p class="status" id="st"></p>
+    </div>
+  </div>
+</div></section>
+</div>
+
+<section class="inbox" id="inbox" hidden><div class="wrap">
+  <span class="eyebrow">Owner only</span>
+  <h2>Enquiry inbox</h2>
+  <p class="lead" id="ib-note">Checking access…</p>
+  <div id="ib-list"></div>
+  <div class="row"><a class="btn o" style="color:var(--fg)" href="#top">Back to site</a></div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <div class="fgrid">
+    <div><div class="logo" style="color:#fff"><b>NEZX</b>Academy</div><p style="margin-top:12px;max-width:34ch;font-size:14px">Learn. Launch. Sell. Grow. Practical e-commerce training from Roorkee, Uttarakhand.</p></div>
+    <div style="font-size:14px;display:grid;gap:6px"><a href="#courses">Courses</a><a href="#results">Results</a><a href="#enquire">Contact</a></div>
+    <div style="font-size:14px;display:grid;gap:6px"><span>+91 63963 01025</span><span>Roorkee, Uttarakhand</span></div>
+  </div>
+  <div class="fsm"><span>© NEZX Academy</span><a href="#inbox">Owner inbox</a></div>
+</div></footer>
+<div id="zoom" role="dialog" aria-label="Enlarged image"><img alt=""></div>
+
+<script>
+var $=function(s,r){return (r||document).querySelector(s)};
+var PHONE='916396301025';
+var COURSES=[
+ {n:'Etsy Selling',t:'Handmade to global',b:['Account setup','Shop customization','Product research','Listing and SEO','Digital and physical products','Order handling','Scaling strategies']},
+ {n:'Amazon.in Selling',t:'Sell across India',b:['Seller account setup','Product research','Listing optimization','Pricing and inventory','Order and customer handling','Growth strategies']},
+ {n:'Amazon Global Selling',t:'Go beyond borders',b:['Global account setup','International market research','Listing and compliance','Shipping and taxation basics','Currency and payment setup','Grow your brand worldwide']},
+ {n:'Flipkart Selling',t:'Sell to millions',b:['Seller registration','Product listing','Inventory and order management','Pricing strategy','Promotions and growth tips']}];
+var MODS=[['E-commerce basics',['What is e-commerce','How online selling works','Etsy, Amazon and Flipkart overview','Choosing the right platform']],
+['Account and shop setup',['Account creation','Seller profile setup','Shop customization','Important settings','Dashboards']],
+['Product and niche research',['Finding profitable products','Niche selection','Demand analysis','Competitor research','Product validation']],
+['Product listing',['Professional listings','SEO friendly titles','Descriptions','Images and mockups','Tags, categories, pricing']],
+['SEO and optimization',['Keyword research','Marketplace SEO','Listing optimization','Search visibility','Ranking tips']],
+['Inventory and orders',['Inventory management','Order processing','Customer handling','Returns and refunds','Daily management']],
+['Business growth',['Scaling your shop','Sales and conversion','Understanding competition','Marketing and promotions','Mistakes to avoid']],
+['Practical training',['Live practical sessions','Real product research','Live listing creation','Marketplace walkthroughs','Doubt-solving sessions']]];
+var STEPS=[['Learn','Gain essential knowledge.'],['Research','Discover opportunities.'],['Build','Set up your shop.'],['List','Create and optimize listings.'],['Sell','Start your selling journey.'],['Grow','Develop your business.']];
+var CLIPS=['Checking incoming stock','Listing on the marketplace','Packing orders for dispatch','Quality-checking products','Product ready to ship'];
+
+$('#plats').innerHTML=COURSES.map(function(c){return '<article class="plat rise"><h3>'+c.n+'</h3><small>'+c.t+'</small><ul>'+c.b.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul><a class="btn y" href="#enquire" data-course="'+c.n+'">Enquire about this</a></article>'}).join('');
+$('#mods').innerHTML=MODS.map(function(m,i){return '<div class="mod rise" style="--d:'+(i%4)*70+'ms"><h3>'+m[0]+'</h3><ul>'+m[1].map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul></div>'}).join('');
+$('#steps').innerHTML=STEPS.map(function(s){return '<div class="st rise"><h3>'+s[0]+'</h3><p>'+s[1]+'</p></div>'}).join('');
+$('#clips').innerHTML=CLIPS.map(function(c,i){var n=i+1;return '<figure class="clip"><video muted loop playsinline preload="none" poster="media/poster'+n+'.jpg" aria-label="'+c+'"><source src="media/clip'+n+'.mp4" type="video/mp4"></video><figcaption>'+c+'</figcaption></figure>'}).join('');
+
+/* nav */
+var burger=$('#burger'),links=$('#links');
+burger.onclick=function(){var o=links.classList.toggle('open');burger.setAttribute('aria-expanded',o);burger.innerHTML=o?'&#10005;':'&#9776;'};
+links.addEventListener('click',function(e){if(e.target.closest('a')){links.classList.remove('open');burger.setAttribute('aria-expanded',false);burger.innerHTML='&#9776;'}});
+addEventListener('scroll',function(){var h=document.documentElement;$('#bar').style.width=(scrollY/Math.max(1,h.scrollHeight-innerHeight)*100)+'%';$('#nav').classList.toggle('sc',scrollY>8)},{passive:true});
+
+/* entrance + video play/pause */
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08});
+  document.querySelectorAll('.rise').forEach(function(el){io.observe(el)});
+  var vo=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target.querySelector('video');if(!v)return;if(e.isIntersecting){var p=v.play();if(p&&p.catch)p.catch(function(){})}else v.pause()})},{threshold:.4});
+  document.querySelectorAll('.clip').forEach(function(el){vo.observe(el)});
+}else{document.querySelectorAll('.rise').forEach(function(el){el.classList.add('in')})}
+
+/* image zoom */
+var Z=$('#zoom');
+document.querySelectorAll('.shot img').forEach(function(im){im.onclick=function(){Z.querySelector('img').src=im.src;Z.querySelector('img').alt=im.alt;Z.classList.add('on')}});
+Z.onclick=function(){Z.classList.remove('on')};addEventListener('keydown',function(e){if(e.key==='Escape')Z.classList.remove('on')});
+
+/* preselect course */
+document.addEventListener('click',function(e){var a=e.target.closest('[data-course]');if(a){var s=$('#course');for(var i=0;i<s.options.length;i++)if(s.options[i].text===a.dataset.course)s.selectedIndex=i}});
+
+/* ---------- enquiry form ---------- */
+var db=null,user=null,uid=null,saved=false;
+function setErr(id,msg){var f=$('#'+id.replace('e-','')),e=$('#'+id);e.textContent=msg||'';if(f)f.setAttribute('aria-invalid',msg?'true':'false')}
+function validate(){
+  var n=$('#name').value.trim(),p=$('#phone').value.replace(/[\s\-+()]/g,''),m=$('#email').value.trim(),ok=true;
+  setErr('e-name',n.length<2?'Enter your full name.':'');if(n.length<2)ok=false;
+  var bad=!/^(91)?[6-9]\d{9}$|^\d{8,15}$/.test(p);setErr('e-phone',bad?'Enter a valid phone number.':'');if(bad)ok=false;
+  var be=m&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m);setErr('e-email',be?'Enter a valid email address.':'');if(be)ok=false;
+  return ok}
+['name','phone','email'].forEach(function(i){$('#'+i).addEventListener('input',function(){if($('#'+i).getAttribute('aria-invalid')==='true')validate()})});
+
+function waLink(d){var t='Hello NEZX Academy, I want to enquire.\nName: '+d.name+'\nPhone: '+d.phone+(d.email?'\nEmail: '+d.email:'')+'\nCourse: '+d.course+'\nMode: '+d.mode+(d.msg?'\nMessage: '+d.msg:'');return 'https://wa.me/'+PHONE+'?text='+encodeURIComponent(t)}
+
+$('#form').addEventListener('submit',async function(e){
+  e.preventDefault();
+  if(!validate()){var bad=document.querySelector('[aria-invalid="true"]');if(bad)bad.focus();return}
+  var d={name:$('#name').value.trim(),phone:$('#phone').value.trim(),email:$('#email').value.trim(),course:$('#course').value,mode:document.querySelector('input[name=mode]:checked').value,msg:$('#msg').value.trim(),ts:Date.now()};
+  var btn=$('#send');btn.disabled=true;btn.textContent='Sending…';
+  saved=false;
+  d.website=$('#website').value;
+  if(d.website){saved=true}
+  else{
+    try{
+      var ctl=new AbortController(),tm=setTimeout(function(){ctl.abort()},8000);
+      var r=await fetch('/api/enquiry',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d),signal:ctl.signal});
+      clearTimeout(tm);saved=r.ok;
+    }catch(err){saved=false}
+  }
+  if(!saved&&db&&uid){
+    try{
+      var ref=db.collection('enquiries').doc(uid),snap=await ref.get(),items=(snap.exists&&snap.data().items)||[];
+      items.push(d);await ref.set({items:items.slice(-50)});saved=true;
+    }catch(err){saved=false}
+  }
+  $('#wa').href=waLink(d);
+  $('#dh').textContent=saved?'Enquiry received':'One last step';
+  $('#dp').textContent=saved?'Thank you, '+d.name.split(' ')[0]+'. We will contact you on '+d.phone+'. You can also message us on WhatsApp for a faster reply.'
+    :'Tap the button below to send your details to us on WhatsApp. Your enquiry reaches us once you press Send in WhatsApp.';
+  $('#st').textContent='';
+  $('#form').hidden=true;$('#done').hidden=false;$('#done').scrollIntoView({behavior:'smooth',block:'center'});
+  btn.disabled=false;btn.textContent='Send enquiry';
+});
+$('#again').onclick=function(){$('#form').reset();$('#done').hidden=true;$('#form').hidden=false;$('#name').focus()};
+
+/* ---------- capabilities + owner inbox ---------- */
+var unsub=null;
+function esc(s){var d=document.createElement('div');d.textContent=s==null?'':String(s);return d.innerHTML}
+function fmt(ts){try{return new Date(ts).toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'})}catch(e){return ''}}
+function renderInbox(snap){
+  var all=[];snap.docs.forEach(function(d){var it=(d.data()||{}).items||[];it.forEach(function(x){all.push(x)})});
+  all.sort(function(a,b){return (b.ts||0)-(a.ts||0)});
+  $('#ib-note').textContent=all.length?all.length+' enquir'+(all.length===1?'y':'ies')+', newest first. Enquiries sent through WhatsApp arrive in your WhatsApp, not here.':'No saved enquiries yet. Enquiries sent through WhatsApp arrive in your WhatsApp.';
+  $('#ib-list').innerHTML=all.map(function(x){return '<div class="item"><div><span class="tg">'+esc(x.course)+'</span><span class="tg" style="background:var(--soft);color:var(--fg)">'+esc(x.mode)+'</span><span class="meta">'+esc(fmt(x.ts))+'</span></div><h3>'+esc(x.name)+'</h3><div>'+esc(x.phone)+(x.email?' · '+esc(x.email):'')+'</div>'+(x.msg?'<p style="color:var(--muted)">'+esc(x.msg)+'</p>':'')+'</div>'}).join('')}
+async function openInbox(){
+  var isOwner=false;try{isOwner=user?await user.canEdit():false}catch(e){}
+  if(!db||!isOwner){$('#ib-note').textContent='Sign in as the owner of this page to see saved enquiries.';$('#ib-list').innerHTML='';return}
+  if(unsub)return;
+  var t=setTimeout(function(){$('#ib-note').textContent='Could not load enquiries. Refresh and try again.'},10000);
+  unsub=db.collection('enquiries').onSnapshot(function(s){clearTimeout(t);renderInbox(s)},function(){clearTimeout(t);$('#ib-note').textContent='Could not load enquiries.'});
+}
+function route(){var inb=location.hash==='#inbox';$('#inbox').hidden=!inb;$('#site').hidden=inb;if(inb){scrollTo(0,0);openInbox()}}
+addEventListener('hashchange',route);route();
+(async function(){
+  try{var c=window.claude;if(!c||!c.use)return;
+    user=await c.use('user');db=await c.use('db');
+    if(user&&user.id)uid=await user.id();
+    if(location.hash==='#inbox')openInbox();
+  }catch(e){}
+})();
+</script>
+
+</body></html>

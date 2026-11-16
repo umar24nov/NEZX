@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>NEZX Academy — Turn your skills into an online business</title>
+    <meta
+      name="description"
+      content="Practical e-commerce training for Etsy, Amazon and Flipkart, taught by a seller who runs real stores. Small batches, live sessions, online or in Roorkee."
+    />
+    <meta name="theme-color" content="#0c0c0b" />
+    <link rel="canonical" href="%VITE_SITE_URL%/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="NEZX Academy" />
+    <meta property="og:title" content="NEZX Academy — Learn. Launch. Sell. Grow." />
+    <meta
+      property="og:description"
+      content="Practical e-commerce training for Etsy, Amazon and Flipkart, taught by a seller who runs real stores."
+    />
+    <meta property="og:url" content="%VITE_SITE_URL%/" />
+    <meta property="og:image" content="%VITE_SITE_URL%/media/workshop.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      // Apply the saved theme before paint to avoid a flash of the wrong scheme.
+      (function () {
+        try {
+          var stored = localStorage.getItem("nezx-theme");
+          var dark = stored
+            ? stored === "dark"
+            : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.classList.toggle("dark", dark);
+          document.documentElement.style.colorScheme = dark ? "dark" : "light";
+        } catch (error) {
+          /* private mode: keep the default theme */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

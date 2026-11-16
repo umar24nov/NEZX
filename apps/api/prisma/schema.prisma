@@ -1,0 +1,215 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  runtime      = "nodejs"
+  moduleFormat = "esm"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum EnquiryMode {
+  ONLINE
+  OFFLINE
+}
+
+enum EnquiryStatus {
+  NEW
+  CONTACTED
+  ENROLLED
+  CLOSED
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+}
+
+enum MediaSection {
+  WORK
+  RESULT
+}
+
+// ---------------------------------------------------------------------------
+// Auth (Better Auth core tables)
+// ---------------------------------------------------------------------------
+
+model User {
+  id            String   @id
+  name          String
+  email         String   @unique
+  emailVerified Boolean  @default(false)
+  image         String?
+  role          String   @default("user")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  sessions Session[]
+  accounts Account[]
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String   @unique
+  ipAddress String?
+  userAgent String?
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@unique([providerId, accountId])
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+}
+
+// ---------------------------------------------------------------------------
+// Site content
+// ---------------------------------------------------------------------------
+
+model SiteConfig {
+  id               String   @id @default("default")
+  phone            String
+  phoneHref        String
+  whatsapp         String
+  location         String
+  replyTime        String
+  formatChips      String[]
+  resultsNote      String
+  whatsappGreeting String
+  updatedAt        DateTime @updatedAt
+}
+
+model Course {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  name      String
+  tagline   String
+  features  String[]
+  sortOrder Int      @default(0)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  enquiries Enquiry[]
+
+  @@index([published, sortOrder])
+}
+
+model Module {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  items     String[]
+  sortOrder Int      @default(0)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([published, sortOrder])
+}
+
+model JourneyStep {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String
+  sortOrder   Int      @default(0)
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([published, sortOrder])
+}
+
+model Audience {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String
+  sortOrder   Int      @default(0)
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([published, sortOrder])
+}
+
+model MediaAsset {
+  id        String       @id @default(cuid())
+  key       String       @unique
+  url       String
+  posterUrl String?
+  type      MediaType
+  section   MediaSection
+  alt       String
+  caption   String?
+  stat      String?
+  sortOrder Int          @default(0)
+  published Boolean      @default(true)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  @@index([section, published, sortOrder])
+}
+
+// ---------------------------------------------------------------------------
+// Leads
+// ---------------------------------------------------------------------------
+
+model Enquiry {
+  id          String        @id @default(cuid())
+  name        String
+  phone       String
+  email       String?
+  courseSlug  String?
+  courseLabel String
+  mode        EnquiryMode   @default(ONLINE)
+  message     String?
+  status      EnquiryStatus @default(NEW)
+  adminNote   String?
+  source      String        @default("website")
+  ipHash      String?
+  userAgent   String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  course Course? @relation(fields: [courseSlug], references: [slug], onDelete: SetNull)
+
+  @@index([status, createdAt(sort: Desc)])
+  @@index([createdAt(sort: Desc)])
+  @@index([phone])
+}

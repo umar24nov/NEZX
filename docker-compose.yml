@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: nezx-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: nezx
+      POSTGRES_PASSWORD: nezx
+      POSTGRES_DB: nezx
+    ports:
+      - "5432:5432"
+    volumes:
+      - nezx-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nezx -d nezx"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  nezx-postgres-data:
